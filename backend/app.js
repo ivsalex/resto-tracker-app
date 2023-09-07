@@ -4,8 +4,11 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config();
 
-mongoose.connect('mongodb+srv://admin:admin@food-ordering-app.ebc8zjr.mongodb.net/?retryWrites=true&w=majority');
+const connectionString = process.env.API_DB_LINK;
+
+mongoose.connect(connectionString);
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
