@@ -7,8 +7,12 @@ const cors = require('cors');
 require('dotenv').config();
 
 const connectionString = process.env.API_DB_LINK;
-
 mongoose.connect(connectionString);
+
+const productRoutes = require('./api/routes/products');
+const orderRoutes = require('./api/routes/orders');
+const usersRoutes = require('./api/routes/users');
+const tablesRoutes = require('./api/routes/tables');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -16,14 +20,19 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.header('Access-Control-Allow-Credentials', true)
+    res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     if (req.method === 'OPTIONS') {
         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
         return res.status(200).json({});
-    };
+    }
     next();
-})
+});
+
+app.use('/products', productRoutes);
+app.use('/orders', orderRoutes);
+app.use('/users', usersRoutes);
+app.use('/tables', tablesRoutes);
 
 app.use(cors({
     origin: 'http://localhost:3000/',
