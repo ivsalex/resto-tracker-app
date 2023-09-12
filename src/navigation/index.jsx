@@ -1,6 +1,8 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Header } from "../components/Header";
 import Home from "../pages/Home";
+import Products from "../pages/Products";
+import Login from "../pages/Login";
 
 const Navigation = () => {
 
@@ -8,8 +10,9 @@ const Navigation = () => {
         <BrowserRouter>
             <Header />
             <Routes>
-                <Route path="*" element={<Navigate to="/" replace />} />
                 <Route path="/" element={<Home />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/login" element={<Login />} />
             </Routes>
         </BrowserRouter>
     )
